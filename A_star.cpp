@@ -8,6 +8,7 @@ using std::ifstream;
 using std::istringstream;
 using std::string;
 using std::vector;
+using std::abs;
 
 enum class State {kEmpty, kObstacle, kClosed};
 
@@ -54,6 +55,18 @@ void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &open, vector<vec
 
 vector<vector<State>> Search(vector<vector<State>> grid, int start[2], int goal[2])
 {
+  // Create the vector of open nodes.
+  vector<vector<int>> open {};
+  
+  // Initialize the starting node. 
+  int x = start[0];
+  int y = start[1];
+  int g = 0;
+  int h = Heuristic(x,y,goal[0],goal[1]);
+
+  // To add the starting node to the open vector.
+  AddToOpen(x, y, g, h, open, grid);
+
   cout << "No, Path Found! \n";
   return vector<vector<State>>{}; 
 }
