@@ -9,7 +9,7 @@ using std::istringstream;
 using std::string;
 using std::vector;
 
-enum class State {kEmpty, kObstacle};
+enum class State {kEmpty, kObstacle, kClosed};
 
 vector<State> ParseLine(string line) {
     istringstream my_stream(line);
@@ -41,14 +41,21 @@ vector<vector<State>> ReadBoardFile(string path) {
 
 int Heuristic(int x1, int y1, int x2, int y2)
 {
-  // Calculate the Manhattan distance betwwn the current and the goal coordinates.
+  // Calculate the Manhattan distance between the current and the goal coordinates.
   return abs(x2-x1) + abs(y2-y1);
+}
+
+// Helper function to add nodes to the open vector and mark them as closed.
+void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &open, vector<vector<State>> &grid)
+{
+  open.push_back(vector<int>{x,y,g,h});
+  grid[x][y] = State::kClosed;
 }
 
 vector<vector<State>> Search(vector<vector<State>> grid, int start[2], int goal[2])
 {
   cout << "No, Path Found! \n";
-  return {}; // Do I have to define a return type here?
+  return vector<vector<State>>{}; 
 }
 
 string CellString(State cell) {
