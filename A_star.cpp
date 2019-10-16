@@ -39,6 +39,12 @@ vector<vector<State>> ReadBoardFile(string path) {
   return board;
 }
 
+vector<vector<State>> Search(vector<vector<State>> grid, int start[2], int goal[2])
+{
+  cout << "No, Path Found! \n";
+  return {}; // Do I have to define a return type here?
+}
+
 string CellString(State cell) {
   switch(cell) {
     case State::kObstacle: return "⛰️   ";
@@ -56,6 +62,16 @@ void PrintBoard(const vector<vector<State>> board) {
 }
 
 int main() {
+  // Initizialize 
+  int init[2] = {0,0};
+  int goal[2] = {4,5};
+
+  // Read the grid file and parse the content
   auto board = ReadBoardFile("board_1.txt");
-  PrintBoard(board);
+  
+  // Search the grid
+  auto solution = Search(board, init, goal);
+  
+  // Print solution to the terminal
+  PrintBoard(solution);
 }
