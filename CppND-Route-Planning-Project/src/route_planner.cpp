@@ -36,6 +36,25 @@ float RoutePlanner::CalculateHValue(RouteModel::Node const *node)
 
 void RoutePlanner::AddNeighbors(RouteModel::Node *current_node)
 {
+    current_node->FindNeighbors();
+    std::cout << "Found Neighbors! \n"; //Debug
+    for (RouteModel::Node *neighbour : current_node->neighbors)
+    for(int i; i < current_node->neighbors.size(); i++)
+    {
+        std::cout << "I'm in the loop, I know I can see multiple msgs \n"; //Debug
+        //neighbour->parent = current_node->parent;
+        current_node->parent = &current_node->parent[i];
+        //neighbour->h_value = CalculateHValue(neighbour);
+        current_node->h_value = CalculateHValue(current_node->neighbors[i]);
+        //neighbour->g_value = (current_node->g_value + current_node->distance(*neighbour)); //Current g-value + distance to the next neighbour.
+        current_node->g_value = (current_node->g_value + current_node->distance(*current_node->neighbors[i]));
+        //open_list.push_back(neighbour);
+        open_list.push_back(current_node->neighbors[i]);
+        //neighbour->visited = true;
+        current_node->visited = true;
+    }
+    
+
 }
 
 // TODO 5: Complete the NextNode method to sort the open list and return the next node.
