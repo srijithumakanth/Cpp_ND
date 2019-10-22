@@ -91,7 +91,7 @@ TEST_F(RoutePlannerTest, TestAddNeighbors) {
 }
 
 
-// Test the ConstructFinalPath method.
+ // Test the ConstructFinalPath method.
 TEST_F(RoutePlannerTest, TestConstructFinalPath) {
     // Construct a path.
     mid_node->parent = start_node;
