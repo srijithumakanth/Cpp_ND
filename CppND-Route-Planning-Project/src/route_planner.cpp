@@ -39,8 +39,10 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node)
     current_node->FindNeighbors();
     //std::cout << "Found Neighbors! \n"; //Debug
     for (RouteModel::Node *neighbour : current_node->neighbors)
-    //for(int i=0; i < current_node->neighbors.size(); i++)
-    //for(RouteModel::Node *neighbour = *current_node->neighbors.begin(); neighbour !=*current_node->neighbors.end(); neighbour++)
+
+    /* Tried three different approaches, the one un-commented felt the easiest and the best.
+    for(int i=0; i < current_node->neighbors.size(); i++)
+    for(RouteModel::Node *neighbour = *current_node->neighbors.begin(); neighbour !=*current_node->neighbors.end(); neighbour++) */
     {
         //std::cout << "I'm in the loop, I know I can see multiple msgs \n"; //Debug
         neighbour->parent = current_node;
