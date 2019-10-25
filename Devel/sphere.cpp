@@ -29,11 +29,13 @@ public:
 
 private:
     // Private members
-    float const pi_{3.14159};
+    //static float constexpr pi_{3.14159};
+    static float const pi_;
     int radius_;
     float volume_;
 };
 
+float const Sphere::pi_{3.14159};
 // Test
 int main(void)
 {
