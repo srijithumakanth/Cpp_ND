@@ -22,8 +22,8 @@ public:
     }
     ExclusiveCopy(ExclusiveCopy &source) // Definition of the copy constructor
     {
-        _myInt = source._myInt;
-        source._myInt = nullptr;
+        _myInt = source._myInt; // Moving the pointer to the destination.
+        source._myInt = nullptr; // Invalidating the source handle's pointer to the memory on the heap
     }
     ExclusiveCopy &operator=(ExclusiveCopy &source) //Overloading the assignment opeartor
     {
