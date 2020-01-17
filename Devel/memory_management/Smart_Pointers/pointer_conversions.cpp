@@ -15,7 +15,11 @@ int main()
 
     // (3) raw pointer from shared (or unique) pointer   
     int *rawPtr = sharedPtr2.get();
-    delete rawPtr;
+    
+    /* This will create a run-time error as delete 
+    is trying to free a memory on the heap that is managed 
+    by shared_pointer and is already been deallocated as soon as the shared pointer goes out of scope.*/
+    delete rawPtr; 
 
     return 0;
 }
