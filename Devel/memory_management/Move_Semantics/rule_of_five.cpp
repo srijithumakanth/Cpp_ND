@@ -74,6 +74,11 @@ public:
     }
 };
 
+void useObject(MyMovableClass obj)
+{
+    std::cout << "using object " << &obj << std::endl;
+}
+
 // int main() // Rule of three
 // {
 //     MyMovableClass obj1(10); // regular constructor
@@ -89,11 +94,20 @@ int main() // Rule of five
 {
     MyMovableClass obj1(100); // regular constructor
 
-    obj1 = MyMovableClass(200); // move assignment operator. A second instance of MyMovableClass 
+    // useObject(obj1); // This method invokes the copy constructor as we as passing it as lvalue
+
+    useObject(std::move(obj1)); // std::move converts a lvalue to a rvalue thus invoking the move constructor 
+                               //  and making the compiler do a move semantics rather than
+                               // copy semantics as seen in the previous usage of this function. obj1 goes 
+                               // out of scope in the main function. You could theoretically access it but it will be a real bad idea.
+
+    // obj1 = MyMovableClass(200); // move assignment operator. A second instance of MyMovableClass 
                                 // is created as an rvalue, which is assigned to obj1. 
 
-    MyMovableClass obj2 = MyMovableClass(300); // move constructor. A second lvalue obj2, 
+    // MyMovableClass obj2 = MyMovableClass(300); // move constructor. A second lvalue obj2, 
                                                // which is created by assigning it an rvalue object.
     
+    
+
     return 0;
 }
