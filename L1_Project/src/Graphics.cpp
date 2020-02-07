@@ -69,4 +69,8 @@ void Graphics::drawTrafficObjects()
     // display background and overlay image
     cv::imshow(_windowName, _images.at(2));
     cv::waitKey(33);
+    // if(cv::getWindowProperty(_windowName , 0) < 0)
+    // {
+    //     cv::destroyAllWindows();
+    // }
 }
