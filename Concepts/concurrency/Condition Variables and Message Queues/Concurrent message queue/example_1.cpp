@@ -6,6 +6,7 @@
 #include <vector>
 #include <future>
 #include <mutex>
+#include <algorithm>
 
 class Vehicle
 {
@@ -26,7 +27,18 @@ public:
     {
         // perform vector modification under the lock
         std::unique_lock<std::mutex> uLock(_mutex);
+
+        /* In the method popBack, we need to create the lock first -
+         it can not be a lock_guard any more as we need to pass it to the condition variable - 
+         to its method wait. Thus it must be a unique_lock. */
+        
         _cond.wait(uLock, [this] { return !_vehicles.empty(); }); // pass unique lock to condition variable
+
+        /* Now we can enter the wait state while at same time releasing the lock.
+         It is only inside wait, that the mutex is temporarily unlocked - 
+         which is a very important point to remember: We are holding the lock before
+          AND after our call to wait - which means that we are free to access whatever data 
+          is protected by the mutex. In our example, this will be dataIsAvailable(). */
 
         // remove last vector element from queue
         Vehicle v = std::move(_vehicles.back());
